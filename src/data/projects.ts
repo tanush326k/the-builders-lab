@@ -97,10 +97,11 @@ export const projects: Project[] = [
     description:
       'An intelligent carbon emissions tracking platform with real-time analytics, sustainability recommendations, and gamified habit-building. Verified with 32 passing automated tests.',
     stack: ['FastAPI', 'Python', 'JavaScript', 'SQLite', 'Docker'],
-    status: 'live',
+    status: 'setup',
     githubUrl: 'https://github.com/tanush326k/carbontrack',
-    liveUrl: 'https://eco-trace-218086876811.us-central1.run.app',
-    deployPlatform: 'Google Cloud Run',
+    deployPlatform: 'Cloud Run (Unverified)',
+    setupNote:
+      'Cloud Run deployment URL documented in repository, but live service availability is unverified. Recommended to run locally via Docker.',
   },
   {
     id: 'smartnotes',
@@ -143,9 +144,9 @@ export const projects: Project[] = [
   {
     id: 'hermes',
     name: 'Hermes Agent Assistant',
-    subtitle: 'Autonomous Workflow Agent',
+    subtitle: 'Modular AI Agent Framework',
     description:
-      'A modular developer assistant engine with multi-step task planning, specialized tool execution, and persistent memory.',
+      'A modular developer assistant framework with multi-step task planning, specialized tool execution, and local experiment workflows.',
     stack: ['Python', 'FastAPI', 'Uvicorn', 'Pydantic v2'],
     status: 'setup',
     githubUrl: 'https://github.com/tanush326k/hermes-agent-assistant',

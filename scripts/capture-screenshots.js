@@ -48,10 +48,8 @@ const server = http.createServer((req, res) => {
   })
 })
 
-const PORT = 5201
+const PORT = 5210
 server.listen(PORT, '127.0.0.1', async () => {
-  console.log(`Static server running at http://127.0.0.1:${PORT}`)
-
   const chromePath = 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe'
 
   try {
@@ -62,111 +60,82 @@ server.listen(PORT, '127.0.0.1', async () => {
     })
 
     const page = await browser.newPage()
-    await page.setViewport({ width: 1440, height: 900, deviceScaleFactor: 2 })
+    await page.setViewport({ width: 1360, height: 850, deviceScaleFactor: 1.5 })
 
-    console.log('Navigating to portfolio...')
     await page.goto(`http://127.0.0.1:${PORT}`, { waitUntil: 'networkidle0' })
-    await new Promise((r) => setTimeout(r, 1500))
+    await new Promise((r) => setTimeout(r, 1200))
 
-    // 1. Hero desktop
-    console.log('Capturing hero-desktop.png...')
+    // 1. Hero Desktop
+    await page.evaluate(() => window.scrollTo(0, 0))
+    await new Promise((r) => setTimeout(r, 500))
     await page.screenshot({
       path: path.join(outputDir, 'hero-desktop.png'),
-      clip: { x: 0, y: 0, width: 1440, height: 860 },
     })
 
-    // 2. About section
-    console.log('Capturing about-section.png...')
-    await page.evaluate(() => document.querySelector('#about')?.scrollIntoView())
-    await new Promise((r) => setTimeout(r, 800))
-    await page.screenshot({
-      path: path.join(outputDir, 'about-section.png'),
-      clip: { x: 0, y: 0, width: 1440, height: 900 },
+    // 2. Projects Showcase
+    await page.evaluate(() => {
+      const el = document.querySelector('#projects')
+      if (el) {
+        const top = el.getBoundingClientRect().top + window.scrollY - 30
+        window.scrollTo(0, top)
+      }
     })
-
-    // 3. Skills section
-    console.log('Capturing skills-section.png...')
-    await page.evaluate(() => document.querySelector('#skills')?.scrollIntoView())
-    await new Promise((r) => setTimeout(r, 800))
-    await page.screenshot({
-      path: path.join(outputDir, 'skills-section.png'),
-      clip: { x: 0, y: 0, width: 1440, height: 900 },
-    })
-
-    // 4. Projects catalogue
-    console.log('Capturing projects-showcase.png...')
-    await page.evaluate(() => document.querySelector('#projects')?.scrollIntoView())
     await new Promise((r) => setTimeout(r, 800))
     await page.screenshot({
       path: path.join(outputDir, 'projects-showcase.png'),
-      clip: { x: 0, y: 0, width: 1440, height: 950 },
     })
 
-    // 5. Builder's Quest Start
-    console.log('Capturing builders-quest-start.png...')
-    await page.evaluate(() => document.querySelector('#lab')?.scrollIntoView())
-    await new Promise((r) => setTimeout(r, 800))
-    await page.screenshot({
-      path: path.join(outputDir, 'builders-quest-start.png'),
-      clip: { x: 0, y: 0, width: 1440, height: 880 },
+    // 3. Builder's Quest (Interactive state -> Result card)
+    await page.evaluate(() => {
+      const el = document.querySelector('#lab')
+      if (el) {
+        const top = el.getBoundingClientRect().top + window.scrollY - 30
+        window.scrollTo(0, top)
+      }
     })
+    await new Promise((r) => setTimeout(r, 600))
 
-    // 6. Interactive Quest Walkthrough -> Result
-    console.log('Executing Builder Quest flow...')
-    const firstChallenge = await page.$('.quest-choice')
-    if (firstChallenge) {
-      await firstChallenge.click()
+    const challengeBtn = await page.$('.quest-choice')
+    if (challengeBtn) {
+      await challengeBtn.click()
       await new Promise((r) => setTimeout(r, 600))
 
-      const firstScenarioOption = await page.$('.quest-choice')
-      if (firstScenarioOption) {
-        await firstScenarioOption.click()
-        console.log('Scenario selected, waiting for result generation...')
-        // Wait for processing lines to finish (around 2200ms)
+      const scenarioBtn = await page.$('.quest-choice')
+      if (scenarioBtn) {
+        await scenarioBtn.click()
         await new Promise((r) => setTimeout(r, 2600))
 
-        console.log('Capturing builders-quest-result.png...')
-        await page.evaluate(() => document.querySelector('#lab')?.scrollIntoView())
-        await new Promise((r) => setTimeout(r, 500))
+        await page.evaluate(() => {
+          const card = document.querySelector('.archetype-card') || document.querySelector('#lab')
+          if (card) {
+            const top = card.getBoundingClientRect().top + window.scrollY - 70
+            window.scrollTo(0, Math.max(0, top))
+          }
+        })
+        await new Promise((r) => setTimeout(r, 600))
+
         await page.screenshot({
           path: path.join(outputDir, 'builders-quest-result.png'),
-          clip: { x: 0, y: 0, width: 1440, height: 920 },
         })
       }
     }
 
-    // 7. Leadership & Achievements
-    console.log('Capturing leadership-section.png...')
-    await page.evaluate(() => document.querySelector('#leadership')?.scrollIntoView())
+    // 4. Skills Matrix
+    await page.evaluate(() => {
+      const el = document.querySelector('#skills')
+      if (el) {
+        const top = el.getBoundingClientRect().top + window.scrollY - 30
+        window.scrollTo(0, top)
+      }
+    })
     await new Promise((r) => setTimeout(r, 800))
     await page.screenshot({
-      path: path.join(outputDir, 'leadership-section.png'),
-      clip: { x: 0, y: 0, width: 1440, height: 900 },
+      path: path.join(outputDir, 'skills-matrix.png'),
     })
 
-    // 8. Contact section
-    console.log('Capturing contact-section.png...')
-    await page.evaluate(() => document.querySelector('#contact')?.scrollIntoView())
-    await new Promise((r) => setTimeout(r, 800))
-    await page.screenshot({
-      path: path.join(outputDir, 'contact-section.png'),
-      clip: { x: 0, y: 0, width: 1440, height: 850 },
-    })
-
-    // 9. Mobile overview
-    console.log('Capturing mobile-overview.png...')
-    await page.setViewport({ width: 390, height: 844, deviceScaleFactor: 2, isMobile: true })
-    await page.evaluate(() => window.scrollTo(0, 0))
-    await new Promise((r) => setTimeout(r, 800))
-    await page.screenshot({
-      path: path.join(outputDir, 'mobile-overview.png'),
-      clip: { x: 0, y: 0, width: 390, height: 844 },
-    })
-
-    console.log('All 9 real screenshots captured successfully!')
     await browser.close()
   } catch (err) {
-    console.error('Error during screenshot capture:', err)
+    console.error('Error during capture:', err)
   } finally {
     server.close()
     process.exit(0)
