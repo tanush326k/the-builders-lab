@@ -1,0 +1,12 @@
+node_modules
+dist
+dist-ssr
+*.local
+.env
+.env.*
+.agent
+.pnpm-store
+*.log
+.DS_Store
+Thumbs.db
+
