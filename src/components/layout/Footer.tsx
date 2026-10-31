@@ -94,12 +94,12 @@ export function Footer() {
             <span>AWS Builder Center: <strong className="text-[var(--color-accent)]">{profile.links.awsBuilderCenterHandle}</strong></span>
             <span>·</span>
             <a
-              href="https://aws.amazon.com/amplify/"
+              href="https://main.d1g4d38wuwfnfb.amplifyapp.com/"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-[var(--color-accent)] transition-colors"
             >
-              AWS Amplify Hosting ↗
+              Deployed on AWS Amplify ↗
             </a>
           </div>
         </div>

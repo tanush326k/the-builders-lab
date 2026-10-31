@@ -7,7 +7,9 @@
 [![TypeScript 5.7](https://img.shields.io/badge/TypeScript-5.7-20242a?style=flat-square&logo=typescript&logoColor=3178C6)](https://www.typescriptlang.org/)
 [![Vite 6](https://img.shields.io/badge/Vite-6.0-20242a?style=flat-square&logo=vite&logoColor=646CFF)](https://vitejs.dev/)
 [![Tailwind CSS v4](https://img.shields.io/badge/Tailwind_CSS-v4.0-20242a?style=flat-square&logo=tailwind-css&logoColor=38B2AC)](https://tailwindcss.com/)
-[![AWS Amplify Hosting](https://img.shields.io/badge/AWS_Amplify-Deployment_Pending-20242a?style=flat-square&logo=aws-amplify&logoColor=FF9900)](https://aws.amazon.com/amplify/)
+[![AWS Amplify Hosting](https://img.shields.io/badge/AWS_Amplify-Live_on_Amplify-20242a?style=flat-square&logo=aws-amplify&logoColor=FF9900)](https://main.d1g4d38wuwfnfb.amplifyapp.com/)
+
+🌐 **Live Application:** [https://main.d1g4d38wuwfnfb.amplifyapp.com/](https://main.d1g4d38wuwfnfb.amplifyapp.com/)
 
 ---
 
@@ -47,7 +49,7 @@ A structured matrix detailing core technical skills across Languages, Frontend A
 - **129 Tests Documented Across ClauseLens and CarbonTrack:** Verified project-level test counts documented in their respective repositories (97 tests on ClauseLens, 32 tests on CarbonTrack). *Note: These are individual project test suites, not tests executed by this portfolio build.*
 - **Interactive Builder's Quest:** A 4-stage decision engine that deterministically computes developer archetypes on the client side with zero API latency.
 - **Accessibility & Motion Control:** Built with semantic HTML, full keyboard navigation, ARIA announcements, and reduced-motion preference detection.
-- **AWS Deployment Specification:** Configured with [`amplify.yml`](./amplify.yml) for automated continuous deployment to AWS Amplify Hosting *(live deployment pending)*.
+- **Live on AWS Amplify:** Deployed and globally distributed with automated CI/CD via AWS Amplify Hosting at [main.d1g4d38wuwfnfb.amplifyapp.com](https://main.d1g4d38wuwfnfb.amplifyapp.com/).
 
 ---
 
@@ -91,26 +93,14 @@ flowchart LR
 ```
 
 ### AWS CI/CD Deployment Workflow
-The repository contains the build specification for AWS Amplify Hosting. Repository connection, webhook activation, and live distribution remain pending approval.
+The portfolio is integrated with AWS Amplify Hosting. Every push to the `main` branch triggers an automated build and edge CDN distribution:
 
 ```mermaid
 flowchart LR
-    Dev["Developer"] -->|"Committed & Pushed"| GitHub["GitHub Repository<br/>(the-builders-lab)"]
-
-    GitHub -.->|"1. Connect in Console (Pending)"| AmplifyConsole
-
-    subgraph Pending["Pending Setup & Live Connection"]
-        AmplifyConsole["AWS Amplify Console"]
-        AmplifyConsole -.->|"2. Activate Webhook (Pending)"| AmplifyBuild["Amplify CI/CD Build<br/>(amplify.yml)"]
-        AmplifyBuild -.->|"3. Distribute to Edge (Pending)"| AmplifyEdge["AWS Edge CDN Hosting"]
-        AmplifyEdge -.->|"4. Public Availability (Pending)"| PublicLive["Live Portfolio URL"]
-    end
-
-    style Pending stroke-dasharray: 4 4
-    style AmplifyConsole stroke-dasharray: 4 4
-    style AmplifyBuild stroke-dasharray: 4 4
-    style AmplifyEdge stroke-dasharray: 4 4
-    style PublicLive stroke-dasharray: 4 4
+    Dev["Developer"] -->|"git push origin main"| GitHub["GitHub Repository<br/>(the-builders-lab)"]
+    GitHub -->|"Webhook Trigger"| AmplifyBuild["AWS Amplify CI/CD<br/>(amplify.yml)"]
+    AmplifyBuild -->|"pnpm build (Vite)"| AmplifyEdge["AWS Edge CDN Hosting"]
+    AmplifyEdge -->|"Global Distribution"| PublicLive["Live Portfolio<br/>main.d1g4d38wuwfnfb.amplifyapp.com"]
 ```
 
 ### Builder's Quest Flow
@@ -180,11 +170,12 @@ pnpm run screenshots
 
 ## AWS Amplify Hosting Status
 
-THE BUILDER'S LAB is pre-configured for automated continuous deployment on **AWS Amplify Hosting** via [`amplify.yml`](./amplify.yml):
+THE BUILDER'S LAB is actively deployed and hosted on **AWS Amplify Hosting**:
 
-- **Status:** **Configuration Complete — Deployment Pending** (Awaiting AWS Amplify console repository connection).
-- **Build Spec:** Enables pnpm, installs dependencies with frozen lockfile, executes `tsc -b && vite build`, and distributes static artifacts from `dist/` across AWS edge locations.
-- **Related AWS Projects:** Tanush's **ProductivityOS AI** is actively deployed on AWS Amplify, and **PulseOps** integrates Amazon Bedrock via Python's `boto3` SDK.
+- **Status:** 🟢 **Active & Live on AWS Amplify**
+- **Live URL:** [https://main.d1g4d38wuwfnfb.amplifyapp.com/](https://main.d1g4d38wuwfnfb.amplifyapp.com/)
+- **Continuous Deployment:** Integrated via [`amplify.yml`](./amplify.yml). Every push to `main` triggers automated dependency installation (`pnpm`), production compilation (`tsc -b && vite build`), and global CDN cache distribution across AWS edge points of presence.
+- **Related AWS Projects:** Tanush's **ProductivityOS AI** is also deployed on AWS Amplify, and **PulseOps** integrates Amazon Bedrock via Python's `boto3` SDK.
 
 ---
 

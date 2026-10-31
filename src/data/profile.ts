@@ -59,6 +59,7 @@ export const profile = {
       "My professional ambition is to grow into a skilled software development and cloud engineering professional. I am committed to expanding my technical depth, attending developer conferences and hackathons, contributing to student developer communities, and collaborating with fellow builders.",
   },
   links: {
+    livePortfolio: 'https://main.d1g4d38wuwfnfb.amplifyapp.com/',
     github: 'https://github.com/tanush326k',
     linkedin: 'https://www.linkedin.com/in/tanush701321/',
     geeksforgeeks: 'https://www.geeksforgeeks.org/profile/tanush326k',
